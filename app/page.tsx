@@ -1,17 +1,13 @@
-import Link from "next/link";
 import { getPostMetadata } from "../components/getPostMetadata";
 import { PostMetadata } from "../components/postMetadata";
+import PostPreview from "../components/PostPreview";
 
 export default function Home(): JSX.Element {
   const postMetadata = getPostMetadata();
   const postPreview = postMetadata.map((post: PostMetadata) => (
-    <div>
-      <Link href={`/posts/${post.slug}`}>
-        <h2>{post.title}</h2>
-      </Link>
-      <p>{post.subtitle}</p>
-      <p>{post.date}</p>
-    </div>
+    <PostPreview key={post.slug} post={post} />
   ));
-  return <div>{postPreview}</div>;
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">{postPreview}</div>
+  );
 }
